@@ -71,6 +71,7 @@ public class MenuService {
                 case "1":
                     try {
                         cardService.addBorrow();
+                        continueConfirm();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -78,6 +79,7 @@ public class MenuService {
                 case "2":
                     try {
                         cardService.edit();
+                        continueConfirm();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -85,6 +87,7 @@ public class MenuService {
                 case "3":
                     try {
                         cardService.delete();
+                        continueConfirm();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -95,6 +98,7 @@ public class MenuService {
                     break;
                 case "5":
                     cardService.print();
+                    continueConfirm();
                     break;
                 case "6":
                     System.out.println("Thoát.");

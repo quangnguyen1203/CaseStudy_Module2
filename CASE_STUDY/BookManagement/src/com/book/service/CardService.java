@@ -56,8 +56,7 @@ public class CardService {
         int age;
         do {
             System.out.println("Nhập tuổi: ");
-            age = sc.nextInt();
-            sc.nextLine();
+            age = Integer.parseInt(sc.nextLine());
         } while (!checkAge(age));
         return age;
     }
@@ -72,14 +71,14 @@ public class CardService {
     }
 
     public String inputID(){
-        System.out.print("Nhập mã phiếu mượn: ");
+        System.out.println("Nhập mã phiếu mượn: ");
         while (!sc.hasNextLine()){
             System.out.println("Không tìm thấy. Yêu cầu nhập hợp lệ");
             sc.nextLine();
         }
         String id = sc.nextLine();
         for(int i=0;i<cardDB.cardList.size();i++){
-            if(cardDB.cardList.get(i).getId() == id){
+            if(cardDB.cardList.get(i).getId().equals(id)){
                 return null;
             }
         }
@@ -157,22 +156,34 @@ public class CardService {
     }
 
     public void delete() throws IOException {
-        System.out.println("Nhập mã phiếu mượn cần xóa: ");
+        boolean check = false;
+        System.out.println("Nhập mã phiếu mượn: ");
         String id = sc.nextLine();
-        Card card = null;
-        for (int i = 0; i < cardDB.cardList.size() ; i++) {
+        for (int i = 0; i < cardDB.cardList.size(); i++) {
             if(cardDB.cardList.get(i).getId().equals(id)){
-                card = cardDB.cardList.get(i);
-                break;
+                check = true;
+                displayFormat();
+                cardDB.cardList.get(i).displayAll();
+                System.out.println("Bạn muốn xóa phiếu mượn này ?");
+                System.out.println("Chọn Y(tiếp tục) / khác(thoát)");
+                switch (toUpperCase(sc.nextLine())){
+                    case "Y":
+                        String temp = cardDB.cardList.get(i).getId();
+                        cardDB.cardList.remove(cardDB.cardList.get(i));
+                        System.out.println("Bạn vừa xóa phiếu mượn <"+temp+"> khỏi danh sách !");
+                        cardDB.saveFile();
+                        break;
+
+                    default:
+                        break;
+                }
             }
         }
-        if (card != null){
-            cardDB.cardList.remove(card);
-            cardDB.saveFile();
-        } else {
-            System.out.println("Mã phiếu mượn không tồn tại!!!");
+        if(!check){
+            System.out.println("Không tìm thấy số ĐT !");
         }
     }
+
 
     public void searchExist(String string){
         boolean check = false;
@@ -184,7 +195,7 @@ public class CardService {
             }
         }
         if(!check){
-            System.out.println("Không tìm thấy trong danh bạ.");
+            System.out.println("Không tìm thấy trong danh sách.");
         }
     }
 

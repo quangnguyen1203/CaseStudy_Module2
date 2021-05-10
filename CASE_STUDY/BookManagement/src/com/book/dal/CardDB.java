@@ -10,9 +10,10 @@ import java.util.Scanner;
 public class CardDB {
     public static Scanner sc = new Scanner(System.in);
     public static List<Card> cardList = new ArrayList<>();
-    public static final String BOOK_FILE = "C:\\Module-2\\CaseStudy_Module2\\CASE_STUDY\\data\\cards.csv";
+    public static final String BOOK_FILE = "C:\\Module-2\\CaseStudy_Module2\\CASE_STUDY\\BookManagement\\data\\cards.csv";
+
     public void saveFile() throws IOException {
-        File file = new File("cards.csv");
+        File file = new File(BOOK_FILE);
         if(!file.exists()){
             file.createNewFile();
         }
